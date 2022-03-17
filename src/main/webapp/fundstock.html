@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet"
+	href="https://unpkg.com/purecss@2.0.6/build/pure-min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
+rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<meta charset="UTF-8">
+<title>Fund Form（Ajax）</title>
+<link rel="stylesheet" href="./css/fund.css">
+<script src="./js/jquery.min.js"></script>
+<script src="./js/util.js"></script>
+<script src="./js/jquery.validate.min.js"></script>
+<script src="./js/messages_zh_TW.min.js"></script>
+<script src="./js/fundstock.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+function drawChart() {
+
+	$.get('./mvc/demo/fundstock/groupMap/', function(datas) {
+		var arrays = [['symbol','share']];
+		$.each(datas, function(symbol,share){	
+			var array = [symbol,share];
+			arrays.push(array);
+		});
+		console.log(arrays);
+		var data = google.visualization.arrayToDataTable(arrays);
+		var options = {
+			title : 'Fundstock info'
+		};
+		var chart = new google.visualization.PieChart(document
+				.getElementById('piechart'));
+		chart.draw(data, options);
+	});
+
+}
+</script>
+
+</head>
+<body >
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #edede9;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Demo</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" href="./fund.html">Fund</a>
+        <a class="nav-link active" href="./fundstock.html">Fundstock</a>
+        <a class="nav-link" href="./fundshareholding.html">Fundshareholding</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+	<table  align="center">
+		<tr>
+			<!-- Fund Form -->
+			<td valign="top">
+				<form id="myForm" class="pure-form">
+					<fieldset>
+						<legend>
+							Fundstock<!-- Fundstock Form（Ajax） | <a href="./fund.html">Fund Form（Ajax）</a>   -->
+						</legend>
+						序號： 
+						<input type="text" id="sid" name="sid" readonly />
+						<p />
+						代號： <input  type="text" id="symbol" name="symbol" required />
+						<p />
+						數量： <input type="text" id="share" name="share" required />
+						<p />
+						基金：<select id="fid" name="fid">
+								<option></option>
+							</select>
+						<p />
+						<button type="button" id="add" class="pure-button pure-button-primary">新增</button>
+						<button type="button" id="upt" class="pure-button pure-button-primary" disabled>修改</button>
+						<button type="button" id="del" class="pure-button pure-button-primary" disabled>刪除</button>
+						<button type="button" id="rst" class="pure-button pure-button-primary">重置</button>
+						<p />
+					</fieldset>
+				</form>
+			</td>
+			<!-- Fundstock List -->
+			<td valign="top">
+				<form class="pure-form">
+					<fieldset>
+						<legend> Fundstock List &nbsp;|&nbsp;
+							<span class="mylink" onclick="queryPage(0);">全部</span>
+							&nbsp;|&nbsp;
+							<!-- 動態產生分頁 -->
+							<span id="page">
+								
+							</span>
+						 </legend>
+						<table id="myTable" class="pure-table pure-table-bordered" >
+							<thead>
+								<tr>
+									<th>序號</th>
+									<th>代號</th>
+									<th>數量</th>
+									<th>基金</th>
+								</tr>
+							</thead>
+							<tbody>
+								
+							</tbody>
+						</table>
+					</fieldset>
+				</form>
+			</td>
+			<!-- Fundstock Chart -->
+			<td valign="top">
+				<div id="piechart" style="width: 900px; height: 500px;"></div>	
+			</td>
+		</tr>
+	</table>
+
+</body>
+</html>

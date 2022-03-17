@@ -1,0 +1,10 @@
+@charset "UTF-8";
+.com{
+	padding:20px;
+	position:"relative";
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 600px;
+}
