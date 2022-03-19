@@ -1,5 +1,5 @@
 # Demo
-該作品共有fund.html、fundstock.html、fundshareholding.html
+該Demo作品共有使用SpringMVC、HTML、Bootstrap、jQuery等框架、技術撰寫。
 
 - 後端: 使用SpringMVC框架，使用JdbcTmplate連接MySQL資料庫。
 
@@ -17,5 +17,4 @@
 
   fundstock.html ：顯示所有股票及所屬基金。新增股票時會透過YahooFinance驗證股票代號是否有效。並使用Google Chart顯示所有股票的數量。
 
-  fundshareholding.html ：可下拉選取每個基金所持有的股票代號及數量。聘利用Google Chart顯示持股的百分比。
-
+  fundshareholding.html ：可下拉選取每個基金所持有的股票代號及數量。並利用Google Chart顯示持股的百分比。
